@@ -1,6 +1,9 @@
 package ForwardingRetry;
 
 import java.util.concurrent.TimeUnit;
+
+import com.sasa5680.ProtoMessages.GeneralMSG.General;
+
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
@@ -17,18 +20,19 @@ public class Forwarding_Retry {
 	private final int Interval;
 	private final int InitDelay;
 	
-	private final ForwardingFailedListener  FFL;
-	private final ForwardingSuccessListener FSL;
+	private  ForwardingFailedListener  FFL;
+	private  ForwardingSuccessListener FSL;
 	
-	private final com.google.protobuf.Message MSG;
+	private final General MSG;
 	private final Channel channel;
 	
 	public static class Builder{
 		
 		//required param
-		public Builder(com.google.protobuf.Message MSG) {
+		public Builder(General MSG, Channel channel) {
 			
-			this.MSG = MSG;
+			this.MSG 	 = MSG;
+			this.channel = channel;
 		}
 		
 		//default value
@@ -39,7 +43,7 @@ public class Forwarding_Retry {
 		private ForwardingFailedListener  FFL = null;
 		private ForwardingSuccessListener FSL = null;
 		
-		private com.google.protobuf.Message MSG;
+		private General MSG;
 		private Channel channel;
 		
 		public Builder Maximum_Count(int val) {
@@ -54,26 +58,6 @@ public class Forwarding_Retry {
 		
 		public Builder InitDelay(int val) {
 			InitDelay = val;
-			return this;
-		}
-		
-		public Builder ForwardingFailedListener(ForwardingFailedListener val) {
-			FFL = val;
-			return this;
-		}
-		
-		public Builder ForwardingSuccessListener(ForwardingSuccessListener val) {
-			FSL = val;
-			return this;
-		}
-		
-		public Builder MSG(com.google.protobuf.Message val) {
-			MSG = val;
-			return this;
-		}
-		
-		public Builder channel(Channel val) {
-			channel = val;
 			return this;
 		}
 		
@@ -94,6 +78,10 @@ public class Forwarding_Retry {
 		MSG			  = b.MSG;
 		channel       = b.channel;	
 	}
+	
+	public void ForwardingFailedListener(ForwardingFailedListener val) {this.FFL = val;}
+	
+	public void ForwardingSuccessListener(ForwardingSuccessListener val) {this.FSL = val;}
 	
 	public void Foward_Message(){
 

@@ -36,32 +36,7 @@ public class SQL {
 		
 		System.out.println("connected to mysql DB : "+dataBase);
 	
-	}
-	
-	public boolean logIn(String ID) {
-		
-		
-		String query = "select exists (select * from userTBL where userID = "+ID+") as success;";
-		int success = 0 ;
-		
-		try {
-			rs = st.executeQuery(query);
-			
-			while(rs.next()) {
-				
-				success = rs.getInt(1);
-				//check whether id is in the DB. if fail,the value is 0 and if success, the value is 1
-				System.out.print(success);
-			}} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		if(success != 0 ) return true;
-		else 			  return false;
-	}
-	
-	
+	}	
 	
 	public void closeDB() throws Exception{
 			
