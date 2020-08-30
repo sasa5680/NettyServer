@@ -35,6 +35,8 @@ public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
         pipeline.addLast(new ProtobufVarint32LengthFieldPrepender());
         pipeline.addLast(new ProtobufEncoder());
         //pipeline.addLast(new OutBoundError());
+        
+        System.out.println("Server : NettyServer Init");
 
     }
  

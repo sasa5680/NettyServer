@@ -6,8 +6,6 @@ public class MasterMap {
 	
 	private MasterMap() {}
 	
-	
-
 	private ConcurrentHashMap<String, DeviceManager> ManagerMap = new ConcurrentHashMap<String, DeviceManager>();
 
 	public ConcurrentHashMap<String, DeviceManager> getManagerMap() {

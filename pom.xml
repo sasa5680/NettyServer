@@ -34,20 +34,20 @@
   			<artifactId>mysql-connector-java</artifactId>
   			<version>5.1.6</version>
   		</dependency>
-  		
-  		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok-maven-plugin -->
-		<dependency>
-    		<groupId>org.projectlombok</groupId>
-    		<artifactId>lombok-maven-plugin</artifactId>
-    		<version>1.18.12.0</version>
-		</dependency>
-		
+	
 		<dependency>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-compiler-plugin</artifactId>
 			<version>3.8.0</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.12</version>
+			<scope>provided</scope>
+		</dependency>
+
 	</dependencies>
   
    <properties>

@@ -102,7 +102,7 @@ public class Forwarding_Retry {
 				if(!(future.isSuccess())) {
 					
 					//if fail to Send message
-					System.out.println("Message Failed");
+					//System.out.println("Message Failed");
 					final MessageWrapper MW = new MessageWrapper(MSG);
 					ScheduledFuture<?> SF = channel.eventLoop().scheduleAtFixedRate(new Runnable() {
 						
@@ -118,7 +118,7 @@ public class Forwarding_Retry {
         							if(FSL != null) FSL.Succes();
         						else {
         							
-        							System.out.println("failed again");
+        							//System.out.println("failed again");
         							
         							MW.TryCount++;
         							//System.out.println("TryCount : "+MF.TryCount+" code : "+ MF.Code);

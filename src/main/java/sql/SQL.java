@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class SQL {
 	
-	public Connection connection = null;
+	public Connection connection  = null;
 	public Statement  st 		  = null;
 	public ResultSet  rs	      = null;
 

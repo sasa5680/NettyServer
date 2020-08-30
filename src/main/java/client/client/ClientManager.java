@@ -3,6 +3,12 @@ package client.client;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.sasa5680.ProtoMessages.GeneralMSG.General;
+
+import ForwardingRetry.ForwardingFailedListener;
+import ForwardingRetry.ForwardingSuccessListener;
+import ForwardingRetry.Forwarding_Retry;
+
 
 
 
@@ -43,10 +49,28 @@ public class ClientManager {
 		
 	}
 	
-	public void endClient(CustomKey key) throws NullPointerException {
+	public void endClient(CustomKey key) {
 		
-		this.clientMap.remove(key);
+		if(this.clientMap.containsKey(key)) {
+			
+			this.clientMap.remove(key);
+			
+		} else {
+			
+			System.out.println("already gone");
+		}
+	}
+	
+	public void endClient(Client client)  {
 		
+		if(this.clientMap.containsValue(client)) {
+			
+			this.clientMap.remove(new CustomKey(client.device.deviceType, client.device.getID()));
+			
+		} else {
+			
+			System.out.println("already gone");
+		}
 	}
 	
 	public ArrayList<Client> getClientListofType(String Type) {
@@ -65,18 +89,80 @@ public class ClientManager {
 		return list;
 	}
 	
-	public void BroadCastToAll(com.google.protobuf.Message MSG) {
+	public synchronized void BroadCastToAll(General MSG) {
+		
+		for(CustomKey key : clientMap.keySet()) {
+		
+			Client client = clientMap.get(key);
+			client.getChannel().writeAndFlush(MSG);
+
+		}
+	}
+	
+	public synchronized void BroadCastToAllWithRetry(General MSG, boolean saveOption) {
 		
 		for(CustomKey key : clientMap.keySet()) {
 			
 			Client client = clientMap.get(key);
-			client.getChannel().writeAndFlush(MSG);
+			Forwarding_Retry R = new Forwarding_Retry.Builder(MSG, client.getChannel()).build();
+			
+			if(saveOption) {
+				
+				R.ForwardingFailedListener(new ForwardingFailedListener(client) {
+
+					@Override
+					public void isFailed() {
+						// TODO Auto-generated method stub
+						client.storedMessages.addMessage(MSG);
+						
+						}
+				});
+				
+				R.Foward_Message();
+			} else {
+				
+				R.Foward_Message();
+			}
+			
 			
 		}
 		
 	}
 	
-	public void BroadCastToType(com.google.protobuf.Message MSG, String Type) {
+	public synchronized void BroadCastToTypeWithRetry(General MSG, String Type, boolean saveOption) {
+		
+		for(CustomKey key : clientMap.keySet()) {
+			
+			if(key.DeviceType.equals(Type)) {
+				
+				Client client = clientMap.get(key);
+				Forwarding_Retry R = new Forwarding_Retry.Builder(MSG, client.getChannel()).build();
+				
+				if(saveOption) {
+					
+					R.ForwardingFailedListener(new ForwardingFailedListener(client) {
+
+						@Override
+						public void isFailed() {
+							// TODO Auto-generated method stub
+							client.storedMessages.addMessage(MSG);
+							
+							}
+					});
+				
+				
+				} else {
+					
+					R.Foward_Message();
+				}
+			}
+			
+		}
+		
+		
+	}
+	
+	public synchronized void BroadCastToType(com.google.protobuf.Message MSG, String Type) {
 		
 		for(CustomKey key : clientMap.keySet()) {
 			
@@ -89,6 +175,7 @@ public class ClientManager {
 		}
 		
 	}
+	
 	
 	public boolean CheckIfExistTypeofDevice(String Type) {
 		
@@ -103,8 +190,6 @@ public class ClientManager {
 			}
 			
 		}
-	
-		
 		return result;
 		
 	}

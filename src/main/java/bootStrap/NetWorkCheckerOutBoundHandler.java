@@ -24,13 +24,15 @@ public class NetWorkCheckerOutBoundHandler extends ChannelOutboundHandlerAdapter
 			public void operationComplete(ChannelFuture future) throws Exception{
 	    		
 	    		
+	    		
 	    		if(future.isSuccess()) {
 					
 	    			client.networkStatue.GoodNetwork();
-					
+	    			System.out.println("Server outbound Handler : Good Network");
 				} else {
 					
 					client.networkStatue.BadNetwork();
+					System.out.println("Server outbound Handler : bad Network");
 				}
 	    	}
 	    	

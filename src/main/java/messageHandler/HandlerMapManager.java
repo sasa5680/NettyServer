@@ -25,7 +25,7 @@ public class HandlerMapManager {
 	
 	public void addMessage(com.google.protobuf.Message MSG, MessageHandler MH) {
 		
-		String Type = MSG.getClass().getName();
+		String Type = MSG.getClass().getSimpleName();
 		
 		if(HandlerMap.containsKey(Type)) {
 			

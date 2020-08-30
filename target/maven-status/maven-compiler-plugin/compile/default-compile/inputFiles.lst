@@ -11,6 +11,7 @@ C:\Users\USER\NettyProject\NettyServer\src\main\java\messageHandler\HandlerMapMa
 C:\Users\USER\NettyProject\NettyServer\src\main\java\bootStrap\ChatServerHandler.java
 C:\Users\USER\NettyProject\NettyServer\src\main\java\client\clientState\ClientState.java
 C:\Users\USER\NettyProject\NettyServer\src\main\java\ForwardingRetry\MessageWrapper.java
+C:\Users\USER\NettyProject\NettyServer\src\main\java\messageHandler\C2S\C2S_PongHandler.java
 C:\Users\USER\NettyProject\NettyServer\src\main\java\client\clientState\LoginWaitState.java
 C:\Users\USER\NettyProject\NettyServer\src\main\java\bootStrap\ChatServer.java
 C:\Users\USER\NettyProject\NettyServer\src\main\java\client\clientState\ActivateState.java
@@ -23,7 +24,6 @@ C:\Users\USER\NettyProject\NettyServer\src\main\java\sql\package-info.java
 C:\Users\USER\NettyProject\NettyServer\src\main\java\client\client\ClientManager.java
 C:\Users\USER\NettyProject\NettyServer\src\main\java\messageHandler\MessageInitializer.java
 C:\Users\USER\NettyProject\NettyServer\src\main\java\client\client\Client.java
-C:\Users\USER\NettyProject\NettyServer\src\main\java\bootStrap\GetDeviceFromDB.java
 C:\Users\USER\NettyProject\NettyServer\src\main\java\bootStrap\package-info.java
 C:\Users\USER\NettyProject\NettyServer\src\main\java\ForwardingRetry\package-info.java
 C:\Users\USER\NettyProject\NettyServer\src\main\java\client\client\NetWorkStatue.java
@@ -36,3 +36,4 @@ C:\Users\USER\NettyProject\NettyServer\src\main\java\ForwardingRetry\Forwarding_
 C:\Users\USER\NettyProject\NettyServer\src\main\java\client\package-info.java
 C:\Users\USER\NettyProject\NettyServer\src\main\java\client\device\MasterMap.java
 C:\Users\USER\NettyProject\NettyServer\src\main\java\bootStrap\NetWorkCheckerOutBoundHandler.java
+C:\Users\USER\NettyProject\NettyServer\src\main\java\messageHandler\Routing.java

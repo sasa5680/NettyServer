@@ -15,8 +15,7 @@ public class C2S_PongHandler extends MessageHandler{
 	@Override
 	public void handle(General MSG) {
 		// TODO Auto-generated method stub
-		
-		this.clientctx.Connection_Check = true;
+		//do nothing
 		
 	}
 

@@ -11,6 +11,7 @@ bootStrap\NetWorkCheckerOutBoundHandler.class
 client\client\CustomKey.class
 main\Main.class
 client\client\ClientManager$1.class
+messageHandler\C2S\C2S_LoginRequestHandler.class
 messageHandler\MessageInitializer.class
 client\clientState\ClientState.class
 client\device\MasterMap$MasterMapHolder.class
@@ -28,9 +29,7 @@ client\clientState\ActivateState$1.class
 ForwardingRetry\Forwarding_Retry$1$1.class
 bootStrap\ChatServerHandler.class
 client\device\Android\AndroidManager$AndroidManagerClassHolder.class
-bootStrap\GetDeviceFromDB.class
 client\device\Drone\DroneManager.class
-client\device\Android\Android.class
 messageHandler\HandlerMapManager$HandlerMapHolder.class
 client\client\Client.class
 client\client\ClientManager.class
@@ -41,7 +40,6 @@ bootStrap\ChatServer.class
 client\clientState\ActivateState.class
 client\device\Drone\DroneManager$DroneManagerClassHolder.class
 client\clientState\ActivateState$2.class
-sql\SQL.class
 bootStrap\NettyServerInitializer.class
 client\device\DeviceManager.class
 client\device\Drone\Drone.class

@@ -8,6 +8,8 @@ import com.sasa5680.ProtoMessages.S2C.S2CLoginRequestReturn.S2C_LoginRequestRetu
 
 import client.client.Client;
 import client.device.MasterMap;
+import client.device.Android.Android;
+import client.device.Drone.Drone;
 import messageHandler.MessageHandler;
 
 import com.sasa5680.CommonIndex.*;
@@ -28,14 +30,30 @@ public class C2S_LoginRequestHandler extends MessageHandler{
 	public void handle(General MSG) {
 		// TODO Auto-generated method stub
 		
+		//unpack Message
 		Any any = MSG.getInnerMSG(0);
 		try {
 			
 			C2S_LoginRequest msg = any.unpack(C2S_LoginRequest.class);
 			String ID 	= msg.getID();
 			String Type = msg.getType();
+			String IP 	= msg.getIP();
 			
-		    MasterMap.getMasterMap().getManager(Type).Login(ID, clientctx);
+			boolean ReLogin = msg.getReConnection();
+			
+			if(Type.equals(DeivceTypes.ANDROID.toString())) {
+				
+				Android device = new Android(clientctx, ID, IP);
+				device.doLogin(ReLogin);
+			} else if(Type.equals(DeivceTypes.DRONE.toString())) {
+				
+				Drone drone = new Drone(clientctx, ID, IP);
+				drone.doLogin(ReLogin);
+				
+			}
+				
+				
+			
 			
 		} catch (InvalidProtocolBufferException e) {
 			// TODO Auto-generated catch block

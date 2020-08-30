@@ -23,8 +23,10 @@ public class ChatServer {
     	
     	MasterMap.getMasterMap().InitDeviceManager();
     	
-    	//MessageInitializer CI = new MessageInitializer();
-    	//CI.Init();
+    	//-----------------------bootstrap-----------------------
+    	MessageInitializer.Init();
+    	
+    	
     	new ChatServer(5001).run();
     	
     }
