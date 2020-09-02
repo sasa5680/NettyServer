@@ -25,7 +25,7 @@ public class ChatServerHandler extends ChannelInboundHandlerAdapter {
     
     Client client;
     MessageHandler messageHandler;
-    HashMap<String, MessageHandler> HM = HandlerMapManager.getHandlertMap().getHandlerMap(client);
+    HashMap<String, MessageHandler> HM;
     
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
@@ -50,9 +50,9 @@ public class ChatServerHandler extends ChannelInboundHandlerAdapter {
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         
     	client.setChannel(ctx.channel());
-    	client.clientLifeCycle.moveState(new LoginWaitState());
+    	client.InitClient();
     	System.out.println("Server : Channel Active");
-    
+    	HM = HandlerMapManager.getHandlertMap().getHandlerMap(client);
 
     }
  
@@ -107,6 +107,7 @@ public class ChatServerHandler extends ChannelInboundHandlerAdapter {
         	try {
 				String MSGType = MSG.getMessageType();
 				messageHandler = this.HM.get(MSGType);
+				System.out.println(MSGType);
 				messageHandler.handle(MSG);
 			} catch (NullPointerException e) {
 				// TODO Auto-generated catch block
@@ -124,7 +125,7 @@ public class ChatServerHandler extends ChannelInboundHandlerAdapter {
         if (cause instanceof java.io.IOException) {
         	
         	System.out.println("fatal Error : Client exited without order");
-        	this.client.networkStatue.FatalNetworkError();
+        	this.client.getNetworkStatue().FatalNetworkError();
         	ctx.close();
         
         }

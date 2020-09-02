@@ -2,21 +2,30 @@ package client.LifeCycle.States;
 
 import java.util.concurrent.TimeUnit;
 
+import com.sasa5680.ProtoMessages.S2C.S2CDroneLoadingMSG;
+
 import client.LifeCycle.CycleState;
 import client.client.Client;
 import io.netty.util.concurrent.ScheduledFuture;
 
 public class LoadingWaitState implements CycleState{
 
-	ScheduledFuture<?> SF;
+	ScheduledFuture<?> LoadingChecker;
 	
 	@Override
 	public void start(Client client) {
 		// TODO Auto-generated method stub
+	
+		try {
+			client.getDevice().Loading();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		System.out.println("Server : start LoadingWait state");
 		//wait for Loading flag...
-		SF = client.getChannel().eventLoop().schedule(new Runnable() {
+		LoadingChecker = client.getChannel().eventLoop().schedule(new Runnable() {
 			
 			
 			//Check Login Flag After 30S
@@ -25,7 +34,7 @@ public class LoadingWaitState implements CycleState{
 				// TODO Auto-generated method stub
 				
 				
-				if(!(client.clientLifeCycle.LoadingDone)) {
+				if(!(client.getClientLifeCycle().LoadingDone)) {
 					
 					//go to LoginFailedState
 							
@@ -41,7 +50,7 @@ public class LoadingWaitState implements CycleState{
 	@Override
 	public void end(Client client) {
 		// TODO Auto-generated method stub
-		SF.cancel(true);
+		LoadingChecker.cancel(true);
 		
 	}
 

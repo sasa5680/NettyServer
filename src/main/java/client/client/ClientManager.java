@@ -65,7 +65,7 @@ public class ClientManager {
 		
 		if(this.clientMap.containsValue(client)) {
 			
-			this.clientMap.remove(new CustomKey(client.device.deviceType, client.device.getID()));
+			this.clientMap.remove(new CustomKey(client.getDevice().deviceType, client.getDevice().getID()));
 			
 		} else {
 			
@@ -113,7 +113,7 @@ public class ClientManager {
 					@Override
 					public void isFailed() {
 						// TODO Auto-generated method stub
-						client.storedMessages.addMessage(MSG);
+						client.getStoredMessages().addMessage(MSG);
 						
 						}
 				});
@@ -145,7 +145,7 @@ public class ClientManager {
 						@Override
 						public void isFailed() {
 							// TODO Auto-generated method stub
-							client.storedMessages.addMessage(MSG);
+							client.getStoredMessages().addMessage(MSG);
 							
 							}
 					});

@@ -17,9 +17,9 @@ public class UnstableState implements NetState{
 	public void start(Client client) {
 		// TODO Auto-generated method stub
 		
-		System.out.println("Server : start Normal state");
+		System.out.println("Server : start UnstableState state");
 		//notify Unstable 
-		client.device.NetWorkUnstable();
+		client.getDevice().NetWorkUnstable();
 		
 		//start fast PingPong
 		

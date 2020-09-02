@@ -18,7 +18,7 @@ public class MessageInitializer {
 		
     	/*---------------C2S Messages---------------*/
     	Map.addMessage(C2S_LoginRequest.getDefaultInstance(), new C2S_LoginRequestHandler(null));
-		Map.addMessage(C2S_Pong.getDefaultInstance(), new C2S_PongHandler(null));
+   		Map.addMessage(C2S_Pong.getDefaultInstance(), new C2S_PongHandler(null));
 		Map.addMessage(C2S_LoadingResult.getDefaultInstance(), new C2S_LoadingResultHandler(null));
 		
 		

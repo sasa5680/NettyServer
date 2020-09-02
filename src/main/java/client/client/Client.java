@@ -17,15 +17,37 @@ import io.netty.channel.Channel;
 
 public class Client {
 	
+	private NetStatue networkStatue;
+	private ClientLifeCycle clientLifeCycle;
+	private StoredMessages storedMessages;
+	private SessionMap sessionMap;
+	
+	
+	public NetStatue getNetworkStatue() {
+		return networkStatue;
+	}
+
+	public ClientLifeCycle getClientLifeCycle() {
+		return clientLifeCycle;
+	}
+
+	public StoredMessages getStoredMessages() {
+		return storedMessages;
+	}
+
+	public SessionMap getSessionMap() {
+		return sessionMap;
+	}
+
 	public Client(Channel channel) {
 		
 		//init Client
 		this.channel = channel;
-		this.networkStatue.moveState(new NormalState());
-		this.clientLifeCycle.moveState(new LoginWaitState());
+
 	}
 	
 	private Channel channel = null;
+	private Device device;
 	
 	public Channel getChannel() {
 		return channel;
@@ -35,13 +57,29 @@ public class Client {
 		
 		this.channel = channel;
 	}
-
-	public Device device;
 	
-	public final NetStatue networkStatue = new NetStatue(this);
-	public final ClientLifeCycle clientLifeCycle = new ClientLifeCycle(this);
-	public final StoredMessages storedMessages = new StoredMessages(this);
-	public final SessionMap sessionMap = new SessionMap();
+	public void setDevice(Device device) {
+		
+		this.device = device;
+	}
+
+	public Device getDevice() {
+		
+		return this.device;
+	}
+	
+
+	public void InitClient() {
+		
+		networkStatue = new NetStatue(this);
+		clientLifeCycle = new ClientLifeCycle(this);
+		storedMessages = new StoredMessages(this);
+		SessionMap sessionMap = new SessionMap();
+		
+		this.networkStatue.moveState(new NormalState());
+		this.clientLifeCycle.moveState(new LoginWaitState());
+	}
+	
 	
 
 	public void setClienttoManager() throws Exception, ClassNotFoundException, SQLException {

@@ -13,7 +13,7 @@ public class deviceTBL_DAO {
 		
 		int result = 0;
 		
-		String query = "select exists (select * from deviceTBL where userID = "+ID+") as success;";
+		String query = "select exists (select * from deviceTBL where deviceID = "+ID+") as success;";
 		
 	
 		sql.rs = sql.st.executeQuery(query);

@@ -34,7 +34,7 @@ public final class Session {
 	public void startSession(TimeStamp timeStamp) {
 		
 		//add Session to Map
-		client.sessionMap.getMap().put(new SessionKey(MessageType, ClientID), this);
+		client.getSessionMap().getMap().put(new SessionKey(MessageType, ClientID), this);
 		//SessionMap.getSessionMap().Map.put(new SessionKey(MessageType, ClientID), this);
 		this.TotalMessageCount = timeStamp.getTotal();
 		CurrentMessageCount = 1;
@@ -70,7 +70,7 @@ public final class Session {
 	
 	public void endSession() {
 		
-		client.sessionMap.getMap().remove(new SessionKey(MessageType, ClientID));
+		client.getSessionMap().getMap().remove(new SessionKey(MessageType, ClientID));
 		//SessionMap.getSessionMap().Map.remove(new SessionKey(MessageType, ClientID));
 		
 	}

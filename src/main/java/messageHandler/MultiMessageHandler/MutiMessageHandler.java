@@ -24,7 +24,7 @@ public abstract class MutiMessageHandler extends MessageHandler
 			//if first message
 			if(stamp.getCurrent() == 1) {
 				
-				Session session = new Session(MSG.getMessageType(), this.clientctx.device.getID(), clientctx);
+				Session session = new Session(MSG.getMessageType(), this.clientctx.getDevice().getID(), clientctx);
 				session.startSession(stamp);
 				
 				//call handler
@@ -32,7 +32,7 @@ public abstract class MutiMessageHandler extends MessageHandler
 			} else {
 				
 				//search Session
-				Session session = clientctx.sessionMap.getMap().get(new SessionKey(MSG.getMessageType(), this.clientctx.device.getID()));
+				Session session = clientctx.getSessionMap().getMap().get(new SessionKey(MSG.getMessageType(), this.clientctx.getDevice().getID()));
 				//Session session = SessionMap.getSessionMap().Map.get(new SessionKey(MSG.getMessageType(), this.clientctx.device.getID()));
 				
 				if(session.CheckNewMessageOrder(stamp)) {

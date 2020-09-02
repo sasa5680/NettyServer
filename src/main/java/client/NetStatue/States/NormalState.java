@@ -4,13 +4,16 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import com.sasa5680.CommonIndex.Network;
+import com.sasa5680.ProtoMessages.GeneralMSG.General;
+import com.sasa5680.ProtoMessages.S2C.S2CPing.S2C_Ping;
+
 
 import client.NetStatue.NetState;
 import client.client.Client;
 
 public class NormalState implements NetState{
 
-	private final int WatcherInterval = 10;
+	private final int WatcherInterval = 5;
 	
 	ScheduledFuture<?> PingPong;
 	ScheduledFuture<?> Watcher;
@@ -24,24 +27,31 @@ public class NormalState implements NetState{
 		
 		//check ratio of Good and BadNetwork
 		
-		//start ping pong //start Ping Pong Schedule
-		PingPong = client.getChannel().eventLoop().schedule(this.Pingpong()
-				, com.sasa5680.CommonIndex.Network.PingPong_Interval, TimeUnit.SECONDS);
+		//start ping pong //start Ping Pong Schedule	
+		PingPong = client.getChannel().eventLoop().scheduleAtFixedRate
+				(Pingpong(client), 1, WatcherInterval, TimeUnit.SECONDS);
+			
 		
-		Watcher = client.getChannel().eventLoop().schedule(this.Watcher(client), 
-				WatcherInterval, TimeUnit.SECONDS);
+		
+		//Watcher = client.getChannel().eventLoop().schedule(this.Watcher(client), WatcherInterval, TimeUnit.SECONDS);
 	}
 
 	@Override
 	public void end(Client client) {
 		// TODO Auto-generated method stub
 		
-		PingPong.cancel(true);
-		Watcher.cancel(true);
+		System.out.println("end NormalState");
+		try {
+			PingPong.cancel(true);
+			//Watcher.cancel(true);
+		} catch (NullPointerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
-	private Runnable Pingpong() {
+	private Runnable Pingpong(Client client) {
 
 		Runnable work = new Runnable() {
 
@@ -49,8 +59,10 @@ public class NormalState implements NetState{
 			public void run() {
 				// TODO Auto-generated method stub
 				
-				//MessageForm MSG = S2C_Ping_Forwarding.getMessage();
-				//C.getChannel().writeAndFlush(MSG);
+				S2C_Ping inner = S2C_Ping.newBuilder().build();
+				
+				General G = com.sasa5680.ProtoMessages.MessageWrapper.Wrap_NonRouting(inner);
+				client.getChannel().writeAndFlush(G);
 			}
 		};
 		return work;
@@ -71,8 +83,8 @@ public class NormalState implements NetState{
 				// TODO Auto-generated method stub
 				
 				//check ratio of good Network and Bad Network...
-				fail = client.networkStatue.getMessageFailCountForRatio();
-				suc  = client.networkStatue.getMessageSucessCountForRatio();
+				fail = client.getNetworkStatue().getMessageFailCountForRatio();
+				suc  = client.getNetworkStatue().getMessageSucessCountForRatio();
 				
 				total = fail+suc;
 				Fail_Suc_Ratio =(suc/total)*100;
@@ -81,18 +93,18 @@ public class NormalState implements NetState{
 				if(Network.NetUnstableRatio<Fail_Suc_Ratio) {
 					
 					//unstable
-					client.networkStatue.moveState(new UnstableState());
+					client.getNetworkStatue().moveState(new UnstableState());
 				} else {
 					
-					client.networkStatue.ResetCount();
+					client.getNetworkStatue().ResetCount();
 	
 				}
 				
 				//if message failed N times in a row, consider as Unstable
 
-				if(client.networkStatue.getMessageFailCount()>Network.MAXIMUM_NetworkUnstableCount) {
+				if(client.getNetworkStatue().getMessageFailCount()>Network.MAXIMUM_NetworkUnstableCount) {
 					
-					client.networkStatue.moveState(new UnstableState());
+					client.getNetworkStatue().moveState(new UnstableState());
 				} 
 					
 			}

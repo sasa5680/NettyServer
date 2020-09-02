@@ -16,8 +16,9 @@ public class ConnectionRecordDAO {
 		int Num = 0;
 		
 		String query = "insert INTO loginrecord (deviceid, deviceType, logintime, IP, isfirstlogin) "
-				+ "values ("+dto.getID()+", "+dto.getType()+", '"+dto.getLoginTime()+"', "+dto.getIP()+", "+dto.getFirstLogin()+")";
+				+ "values ("+dto.getID()+", '"+dto.getType()+"', '"+dto.getLoginTime()+"', '"+dto.getIP()+"', "+dto.getFirstLogin()+")";
 		
+		System.out.println(query);
 		sql.st.execute(query);
 		
 
@@ -46,7 +47,7 @@ public class ConnectionRecordDAO {
 		
 		ArrayList<ConnectionRecordDTO> array = new ArrayList<ConnectionRecordDTO>();
 		
-		String query = "SELECT * FROM DEVICETBL where deviceID = '"+client.device.getID()+"'";
+		String query = "SELECT * FROM DEVICETBL where deviceID = '"+client.getDevice().getID()+"'";
 		
 		sql.rs = sql.st.executeQuery(query);
 		

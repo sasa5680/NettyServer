@@ -11,12 +11,13 @@ public class ConnectionLostState implements NetState{
 	public void start(Client client) {
 		// TODO Auto-generated method stub
 		
+		System.out.println("Server - start ConnectionLostState");
 		
 		//start fast Pingpong
 		
 		
 		//call device's notify
-		client.device.NetWorkUnstable();
+		//client.device.NetWorkUnstable();
 		
 		
 	}

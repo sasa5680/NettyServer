@@ -10,6 +10,7 @@ import com.sasa5680.ProtoMessages.S2C.S2CLoginRequestReturn.S2C_DeviceList;
 import com.sasa5680.ProtoMessages.S2C.S2CLoginRequestReturn.S2C_LoginRequestReturn;
 
 import ForwardingRetry.Forwarding_Retry;
+import client.LifeCycle.States.LoadingWaitState;
 import client.client.Client;
 import client.client.ClientManager;
 import loginModule.ConnectionRecordDAO;
@@ -83,12 +84,15 @@ public abstract class Device {
 			
 			//get current time
 			Calendar cal = Calendar.getInstance();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy / MM / dd / HH:mm:ss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String Time = sdf.format(cal.getTime());
+			System.out.println(Time);
 			
 			CR.setLoginTime(Time);
 			CR.setID(this.deviceID);
 			CR.setType(this.deviceType);
+			CR.setIP(this.IP);
+			CR.setFirstLogin(ReLogin);
 			
 			//insert to new record to database
 			LoginNum = ConnectionRecordDAO.addLogin(CR);
@@ -111,6 +115,9 @@ public abstract class Device {
 			
 			//call abstract method 
 			LoginAfterAction(ReLogin);
+			
+			//go to Loading Wait State
+			this.client.getClientLifeCycle().moveState(new LoadingWaitState());
 			
 		} else {
 			

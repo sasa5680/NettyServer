@@ -7,6 +7,8 @@ import com.sasa5680.ProtoMessages.GeneralMSG.General;
 import com.sasa5680.ProtoMessages.S2C.S2CLoginRequestReturn.S2C_LoginRequestReturn;
 
 import client.client.Client;
+import client.device.Device;
+import client.device.DeviceSelector;
 import client.device.MasterMap;
 import client.device.Android.Android;
 import client.device.Drone.Drone;
@@ -39,21 +41,16 @@ public class C2S_LoginRequestHandler extends MessageHandler{
 			String Type = msg.getType();
 			String IP 	= msg.getIP();
 			
+			//System.out.println(Type);
 			boolean ReLogin = msg.getReConnection();
 			
-			if(Type.equals(DeivceTypes.ANDROID.toString())) {
-				
-				Android device = new Android(clientctx, ID, IP);
-				device.doLogin(ReLogin);
-			} else if(Type.equals(DeivceTypes.DRONE.toString())) {
-				
-				Drone drone = new Drone(clientctx, ID, IP);
-				drone.doLogin(ReLogin);
-				
-			}
-				
-				
+			Device device = DeviceSelector.selector(Type, clientctx, ID, IP);
 			
+			//error 8.31
+			
+			
+			this.clientctx.setDevice(device);
+			device.doLogin(ReLogin);
 			
 		} catch (InvalidProtocolBufferException e) {
 			// TODO Auto-generated catch block

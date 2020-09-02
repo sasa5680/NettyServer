@@ -4,10 +4,12 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import bootStrap.NettyServerInitializer;
+import io.netty.bootstrap.Bootstrap;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import messageHandler.MessageInitializer;
 
 public class Main {
 	
@@ -26,7 +28,7 @@ public class Main {
     		e1.printStackTrace(); }
 
     	
-    	
+    	MessageInitializer.Init();
     	
     
 

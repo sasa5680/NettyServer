@@ -21,6 +21,8 @@ public class C2S_LoadingResultHandler extends MessageHandler{
 	public void handle(General MSG) {
 		// TODO Auto-generated method stub
 			
+			System.out.println("C2S_Loading");
+		
 			Any any = MSG.getInnerMSG(0);
 			
 			try {
@@ -30,14 +32,14 @@ public class C2S_LoadingResultHandler extends MessageHandler{
 					
 					//Loading done
 					//go to activate state
-					this.clientctx.clientLifeCycle.moveState(new ActivateState());
+					this.clientctx.getClientLifeCycle().moveState(new ActivateState());
 					
 					
 				} else {
 					
 					//try Loading again
 					try {
-						this.clientctx.device.Loading();
+						this.clientctx.getDevice().Loading();
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

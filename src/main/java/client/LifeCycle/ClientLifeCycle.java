@@ -25,6 +25,13 @@ public class ClientLifeCycle {
 	
 	 final public void moveState(CycleState New_state) {
 	    
+		 if(Current_State == null) {
+			 
+			 Current_State = New_state;
+			 Current_State.start(client);
+			 return;
+		 }
+		 
 		 if(Current_State.getClass().getSimpleName().equals(New_state.getClass().getSimpleName())) {
 			 
 			 //if new State is same with current state

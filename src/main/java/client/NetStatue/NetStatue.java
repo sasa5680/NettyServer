@@ -16,17 +16,25 @@ public class NetStatue {
 	
     final public void moveState(NetState New_state) {
     	
-    	Currentnet_State.end(client);
+    	if(Currentnet_State == null) {
+    		
+    		Currentnet_State = New_state;
+    		Currentnet_State.start(client);
+    		
+    	} else {
+    		
+    		Currentnet_State.end(client);
+    		
+    		this.Currentnet_State = New_state;
+        	Currentnet_State.start(client);
+    	}
     	
-    	this.Currentnet_State = New_state;
-    	
-    	Currentnet_State.start(client);
     }
     
     public void FatalNetworkError() {
     	
     	//when fatal NetworkError Happened...
-    	this.client.device.ConnectionLost();
+    	this.client.getDevice().ConnectionLost();
     	
     }
     

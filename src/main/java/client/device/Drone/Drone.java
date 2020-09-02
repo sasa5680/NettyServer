@@ -19,7 +19,7 @@ import sql.SQL;
 public class Drone extends Device{
 	
 	public Drone(Client client, String ID, String IP) {
-		super(client,ID, com.sasa5680.CommonIndex.DeivceTypes.ANDROID.toString(), IP);
+		super(client,ID, com.sasa5680.CommonIndex.DeivceTypes.DRONE.toString(), IP);
 		// TODO Auto-generated constructor stub
 		
 	}
@@ -46,6 +46,7 @@ public class Drone extends Device{
 	public void LoginAfterAction(boolean ReLogin) {
 		// TODO Auto-generated method stub
 		
+		System.out.println("Drone Login After Notify");
 			//notify login to android
 		S2C_NewDeviceNotify msg = S2C_NewDeviceNotify.newBuilder().setID(this.getID())
 																  .setType(this.getType())
@@ -53,6 +54,8 @@ public class Drone extends Device{
 																  .build();
 		
 		General G = com.sasa5680.ProtoMessages.MessageWrapper.Wrap_NonRouting(msg);
+		
+		
 		
 		//ClientManager.getClientManager().BroadCastToType(G
 	}
@@ -84,6 +87,7 @@ public class Drone extends Device{
 	public void Loading() throws Exception {
 		// TODO Auto-generated method stub
 		
+		System.out.println("Send Loading Info");
 		//get android flag
 		boolean Androidflag = ClientManager.getClientManager().CheckIfExistTypeofDevice(DeivceTypes.ANDROID.toString());
 		

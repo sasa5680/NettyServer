@@ -27,12 +27,14 @@ public class HandlerMapManager {
 		
 		String Type = MSG.getClass().getSimpleName();
 		
+		
 		if(HandlerMap.containsKey(Type)) {
 			
 			System.out.println("Message Type already used");
 		} else {
 			
 			HandlerMap.put(Type, MH);
+			System.out.println("add MessageHandler :"+Type);
 		}
 		
 		

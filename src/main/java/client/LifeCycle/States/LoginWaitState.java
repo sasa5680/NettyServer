@@ -26,7 +26,7 @@ public class LoginWaitState implements CycleState{
 				// TODO Auto-generated method stub
 				
 				
-				if(!(client.clientLifeCycle.isLoginflag())) {
+				if(!(client.getClientLifeCycle().isLoginflag())) {
 					
 					//go to LoginFailedState
 							

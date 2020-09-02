@@ -32,8 +32,8 @@ public class NetWatcher implements Runnable{
 		// TODO Auto-generated method stub
 		//check ratio of good Network and Bad Network...
 		
-		fail = client.networkStatue.getMessageFailCountForRatio();
-		suc  = client.networkStatue.getMessageSucessCountForRatio();
+		fail = client.getNetworkStatue().getMessageFailCountForRatio();
+		suc  = client.getNetworkStatue().getMessageSucessCountForRatio();
 		
 		total = fail+suc;
 		Fail_Suc_Ratio =(suc/total)*100;
@@ -42,18 +42,18 @@ public class NetWatcher implements Runnable{
 		if(Network.NetUnstableRatio<ratio) {
 			
 			//unstable
-			client.networkStatue.moveState(movestate);
+			client.getNetworkStatue().moveState(movestate);
 		} else {
 			
-			client.networkStatue.ResetCount();
+			client.getNetworkStatue().ResetCount();
 
 		}
 		
 		//if message failed N times in a row, consider as Unstable
 
-		if(client.networkStatue.getMessageFailCount()>maximumcount) {
+		if(client.getNetworkStatue().getMessageFailCount()>maximumcount) {
 			
-			client.networkStatue.moveState(movestate);
+			client.getNetworkStatue().moveState(movestate);
 		} 
 		
 		
